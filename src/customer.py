@@ -3,14 +3,14 @@ class Customer:
         self.name=name
         self.wallet=wallet
         self.age=age
-        self.energy=0
+        self.drunkness=0
 
-    def buy(self,item_name,shop,is_drink=True):
-        item=shop.sell(item_name.lower(),self,is_drink)
+    def buy(self,item_name,pub,is_drink=True):
+        item=pub.sell(item_name.lower(),self,is_drink)
         if item is not None:
             self.wallet-=item.price
             if is_drink:
-                self.energy+=item.caffeine
+                self.drunkness+=item.alcohol
             else:
-                self.energy-=item.digestion
+                self.drunkness-=item.rejuvination
 

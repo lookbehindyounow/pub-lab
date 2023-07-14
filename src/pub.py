@@ -1,7 +1,7 @@
 from src.drink import Drink
 from src.food import Food
 
-class CoffeeShop:
+class Pub:
 	def __init__(self,name=str,till=float):
 		self.name=name
 		self.till=till
@@ -12,23 +12,23 @@ class CoffeeShop:
 	# "item name": [<object>, quantity in stock(int)],
 	# "other item name": [<other_object>, quantity in stock(int)]
 	# }
-	def add_drinks(self,quantity,name,price=None,caffeine_digestion=None,is_drink=True):
+	def add_stock(self,quantity,name,price=None,alcohol_rejuvination=None,is_drink=True):
 		if name.lower() in self.drinks:
 			self.drinks[name.lower()][1]+=quantity
 		elif name.lower() in self.food:
 			self.food[name.lower()][1]+=quantity
-		elif price is not None and caffeine_digestion is not None:
+		elif price is not None and alcohol_rejuvination is not None:
 			if is_drink:
-				drink=Drink(name,price,caffeine_digestion)
+				drink=Drink(name,price,alcohol_rejuvination)
 				self.drinks[name.lower()]=[drink,quantity]
 			else:
-				food_product=Food(name,price,caffeine_digestion)
+				food_product=Food(name,price,alcohol_rejuvination)
 				self.food[name.lower()]=[food_product,quantity]
 		else:
 			print(name+" does not currently exist on the menu."+
 	 			  " If you wish to add it use the syntax: "+
-				  "add_drink(quantity(int), name(str), price(float), caffeine content(int), is_drink(bool))"+
-				  ". You only need to fill in is_drink if making a new food item, where you would write False")
+				  "add_drink(quantity(int), name(str), price(float), caffeine content(int), is_drink(bool)."+
+				  " You only need to fill in is_drink if making a new food item, where you would write False")
     
 	def stock_check(self,name,stock_dict):
 		if name in stock_dict:
@@ -44,9 +44,9 @@ class CoffeeShop:
     
 	def sell(self,name,customer,is_drink):
 		if is_drink:
-			if customer.age<16:
+			if customer.age<18:
 				print("too young go home no coffee for you")
-			elif customer.energy>=150:
+			elif customer.drunkness>=40:
 				print("you've had enough pal I'm calling you a taxi before you hurt yourself or someone else")
 			else:
 				return self.stock_check(name,self.drinks)
@@ -62,7 +62,9 @@ class CoffeeShop:
 	def stock_value(self):
 		total=0
 		for drink in self.drinks:
-			total+=self.drinks[drink][0].price
+			total+=self.drinks[drink][1]*self.drinks[drink][0].price
+			print(total)
 		for food_product in self.food:
-			total+=self.food[food_product][0].price
+			total+=self.food[food_product][1]*self.food[food_product][0].price
+			print(total)
 		return total
