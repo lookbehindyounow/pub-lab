@@ -66,8 +66,6 @@ class Pub:
 		total=0
 		for drink in self.drinks:
 			total+=self.drinks[drink][1]*self.drinks[drink][0].price
-			print(total)
 		for food_product in self.food:
 			total+=self.food[food_product][1]*self.food[food_product][0].price
-			print(total)
 		return total
